@@ -7,18 +7,162 @@ var playerWord = "";
 var wins = 0;
 var losses = 0;
 var guessesLeft = 0;
-
+var wordBank = [
+"barnacle",
+"bathing suit",
+"bay",
+"beach",
+"beachball",
+"bikini",
+"boardwalk",
+"cape",
+"catamaran",
+"clam",
+"clam bake",
+"coast",
+"conch",
+"cooler",
+"coral",
+"cove",
+"crab",
+"currents",
+"dive",
+"dock",
+"dune",
+"dune buggy",
+"ebb tide",
+"family",
+"fins",
+"fish",
+"fishing",
+"frisbee",
+"gull",
+"hang five",
+"hat",
+"hermit crab",
+"high tide",
+"ice cream",
+"intertidal zone",
+"island",
+"jellyfish",
+"kayak",
+"kelp",
+"lagoon",
+"lake",
+"lakeshore",
+"lifeguard",
+"life jacket",
+"life preserver",
+"limpet",
+"longboard",
+"low tide",
+"mangrove",
+"mussels",
+"neap tide",
+"ocean",
+"paddleboat",
+"palm tree",
+"pelican",
+"pier",
+"popsicle",
+"reef",
+"relax",
+"rest",
+"rip current",
+"sail",
+"sailboat",
+"salt water",
+"salt water taffy",
+"sand",
+"sandals",
+"sandbar",
+"sandcastle",
+"sand dollar",
+"scuba",
+"sea",
+"seagull",
+"seashell",
+"seashore",
+"sea star",
+"shark",
+"shell",
+"ship",
+"shore",
+"shorebirds",
+"snacks",
+"snorkel",
+"soft serve ice cream",
+"spray",
+"starfish",
+"sun",
+"sunbathe",
+"sunburn",
+"sunglasses",
+"sun hat",
+"sunscreen",
+"suntan",
+"surf",
+"surfboard",
+"swim",
+"swim fins",
+"swimming cap",
+"taffy",
+"tan",
+"tide",
+"tide pool",
+"towel",
+"trip",
+"trunks",
+"tsunami",
+"umbrella",
+"undertow",
+"underwater",
+"vacation",
+"volleyball",
+"water",
+"water bottle",
+"waves",
+"weekend",
+"wet",
+"wharf",
+"whitecaps",
+"yacht",
+"zoris"
+]
 // Need Function for choosing the Computer's Word
 function computerWord() {
-    targetWord = "RESERVED";
+    targetWord = wordBank[Math.floor(Math.random()* wordBank.length)].toUpperCase();
     playerWordSetup();
 }
 // Need a Function to setup the playerWord to Mirror the targetWord
 function playerWordSetup(){
     for(i=0; i < targetWord.length; i++){
-        playerWord = playerWord + "_";
+        if(targetWord[i] === " "){
+            playerWord = playerWord + " ";
+        }
+        else if (!(targetWord[i] === " ")){
+            playerWord = playerWord + "_";
+        }
     }
-    guessesLeft = Math.floor(targetWord.length * 1.5);
+    guessesLeft = Math.floor(countUnique(targetWord) * 1.25);
+}
+// Need a Function to count the number of unique letters in a given word
+function countUnique(word){
+    var uniqueLetters = "";
+    for(i=0; i < word.length; i++){
+        if (!uniqueLetters.includes(word[i])){
+            uniqueLetters = uniqueLetters + word.charAt(i);
+        }
+    }
+    if (uniqueLetters.length > 5 && uniqueLetters.length <= 10){
+        return uniqueLetters.length;
+    }
+    else if (uniqueLetters.length <= 5){
+        return Math.floor(uniqueLetters.length * 2);
+    }
+    else if (uniqueLetters.length > 10){
+        return Math.floor(uniqueLetters.length * .8)
+    }
 }
 // Need Function for validating Players Guess. 
 function isValid(guess){
@@ -141,6 +285,10 @@ document.getElementById("song").setAttribute("src", "");
 document.getElementById("music").play();
     // update jumbotron with the title of the song
 document.getElementById("songTitle").textContent = "";
+    // display the winning word
+document.getElementById("winningWord").textContent= playerWord;
+document.getElementById("winningWord").style.display="block";
+document.getElementById("previousWord").style.display="block";
     // execute reset
     reset();
 }

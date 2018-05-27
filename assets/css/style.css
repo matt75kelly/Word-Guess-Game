@@ -1,6 +1,42 @@
+body{
+    background-image: url(../images/beach.jpg);
+    background-color: sandybrown;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.gameHead {
+    text-align: center;
+    height: 40vh;
+    color: #8B003A;
+}
+.gameTitle{
+    font-size: 4em;
+    margin: 2vh 0;
+}
+.gameSubtitle {
+    font-size: 2.5em;
+    margin: 1vh 0;
+}
+.audioTitle {
+    font-size: 1.5em;
+    margin: 1vh 0;
+}
+.container {
+    font-family: 'Nothing You Could Do', cursive;
+    font-size: 2rem;
+}
+.content {
+    text-align: center;
+    background-color: #d6ac77;
+    border: 5px solid #8b003a;
+}
 #board {
     letter-spacing: 1rem;
 }
 #music {
+    display: none;
+    margin: 1vh, 20px;
+}
+#previousWord {
     display: none;
 }
