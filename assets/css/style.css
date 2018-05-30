@@ -36,7 +36,12 @@ body{
 #music {
     display: none;
     margin: 1vh, 20px;
+    opacity: .3;
 }
 #previousWord {
     display: none;
+}
+#imgLeft {
+    display: none;
+    margin: 5px auto;
 }

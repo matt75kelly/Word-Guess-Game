@@ -7,6 +7,7 @@ var playerWord = "";
 var wins = 0;
 var losses = 0;
 var guessesLeft = 0;
+var mpg = ["All_In_A_Summers_Day.mp3", "Beach_Baby.mp3", "Beach_House.mp3", "Beach_Philosophy.mp3", "Beach_Point_Pleasant.mp3", "Bleached_Beach.mp3", "Days_of_Summer.mp3", "Groovy_Girls_Make_Love_on_the_Beach.mp3", "Harken_Sunshine.mp3"];
 var wordBank = [
 "barnacle",
 "bathing suit",
@@ -209,51 +210,51 @@ function updateStats(){
 function updateGuessList(guess){
     if(isMatch(guess)){
         guessed = guessed + guess + ", ";
-        console.log("Guessed: " + guessed);
+//        console.log("Guessed: " + guessed);
     }
     else if(!isMatch(guess)){
         guessedWrong = guessedWrong + guess + ", ";
         guessed = guessed + guess + ", ";
-        console.log("Guessed Wrong: " + guessedWrong + "Guessed: " + guessed);
+//        console.log("Guessed Wrong: " + guessedWrong + "Guessed: " + guessed);
     }
 }
 // Need a Function for updating the Player Word
 function updatePlayerWord(guess){
-    console.log("entered updatePlayerWord Function")
+//    console.log("entered updatePlayerWord Function")
     var word = "";
     var letter = "";
     var wordTwo = "";
     word.length = targetWord.length;
     for(i=0; i<targetWord.length; i++){
         if (guess === targetWord[i]){
-            console.log("setting the " + i + " letter to " + guess);
+//            console.log("setting the " + i + " letter to " + guess);
             word = word + guess;
         }
         else {
             word = word + "_"
         }
     }
-    console.log("Word: " + word);
+//    console.log("Word: " + word);
     for (j=0; j < targetWord.length; j++) {
-        console.log("Inside Loop for Word2");
+ //       console.log("Inside Loop for Word2");
         if(!(word[j] === "_")){
             letter = word.charAt(j);
             wordTwo = wordTwo + letter;
-            console.log("charAt " + j + ": " + letter);
+ //           console.log("charAt " + j + ": " + letter);
         }
         else if(!(playerWord[j] === "_")){
             letter = playerWord.charAt(j);
             wordTwo = wordTwo + letter;
-            console.log("charAt " + j + ": " + letter);
+ //           console.log("charAt " + j + ": " + letter);
         }
         else if (word[j] === "_" && playerWord[j] === "_"){
             letter = word.charAt(j);
             wordTwo = wordTwo + letter;
         }
     }
-    console.log("WordTwo: " + wordTwo);
+ //   console.log("WordTwo: " + wordTwo);
     playerWord = wordTwo;
-    console.log("PlayerWord: " + playerWord);
+ //   console.log("PlayerWord: " + playerWord);
 }
 // Need a function to check if we have a match. Depending on if its a match 
 // determines what needs updating
@@ -275,13 +276,29 @@ function reset(){
     drawBoard();
     updateStats();
 }
+// Need a function to return the name of the image to use by victory function
+function getImage(){
+    var number = Math.floor(Math.random()*8);
+ //   console.log("assets/images/" + number + ".jpg");
+    return ("assets/images/" + number + ".jpg");
+}
+// Need a function to return the name of the audio file to use by victory function
+function getAudio(){
+    var prefix = "assets/audio/"
+    var string = mpg[Math.floor(Math.random()*mpg.length)];
+    console.log(prefix + string);
+    return prefix + string;
+}
 // Need function to initiate change upon winning the game
 function victory() {
     // change the image displayed in the left column
-document.getElementById("imgLeft").setAttribute("src", "");
+document.getElementById("imgLeft").setAttribute("src", getImage());
+document.getElementById("imgLeft").setAttribute("width","300px");
+document.getElementById("imgLeft").setAttribute("height", "300px");
+document.getElementById("imgLeft").style.display="block";
     // play audio song
 document.getElementById("music").style.display= "block";
-document.getElementById("song").setAttribute("src", "");
+document.getElementById("song").setAttribute("src", getAudio());
 document.getElementById("music").play();
     // update jumbotron with the title of the song
 document.getElementById("songTitle").textContent = "";
