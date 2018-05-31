@@ -7,7 +7,7 @@ var playerWord = "";
 var wins = 0;
 var losses = 0;
 var guessesLeft = 0;
-var mpg = ["All_In_A_Summers_Day.mp3", "Beach_Baby.mp3", "Beach_House.mp3", "Beach_Philosophy.mp3", "Beach_Point_Pleasant.mp3", "Bleached_Beach.mp3", "Days_of_Summer.mp3", "Groovy_Girls_Make_Love_on_the_Beach.mp3", "Harken_Sunshine.mp3"];
+var mpg = ["All.mp3", "Baby.mp3", "House.mp3", "Philosophy.mp3", "Pleasant.mp3", "Bleached.mp3", "Days.mp3", "Groovy.mp3", "Harken.mp3"];
 var wordBank = [
 "barnacle",
 "bathing suit",
@@ -286,8 +286,8 @@ function getImage(){
 function getAudio(){
     var prefix = "assets/audio/"
     var string = mpg[Math.floor(Math.random()*mpg.length)];
-    console.log(prefix + string);
-    return prefix + string;
+    string = prefix+string;
+    return string;
 }
 // Need function to initiate change upon winning the game
 function victory() {
@@ -297,8 +297,10 @@ document.getElementById("imgLeft").setAttribute("width","300px");
 document.getElementById("imgLeft").setAttribute("height", "300px");
 document.getElementById("imgLeft").style.display="block";
     // play audio song
+document.getElementById("music").pause();
 document.getElementById("music").style.display= "block";
-document.getElementById("song").setAttribute("src", getAudio());
+document.getElementById("song").src = getAudio();
+document.getElementById("music").load();
 document.getElementById("music").play();
     // update jumbotron with the title of the song
 document.getElementById("songTitle").textContent = "";
@@ -311,7 +313,6 @@ document.getElementById("previousWord").style.display="block";
 }
 // Need logic to execute on key up event by player
 reset();
-console.log(targetWord);
 
 document.onkeyup = function(event){
     var playerGuess = event.key.toUpperCase();
